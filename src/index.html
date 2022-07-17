@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="///node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="///node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="///node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="///node_modules/vue/dist/vue.global.js"></script>
+    <script>
+        window.$ = window.jQuery;
+    </script>
+    <title>TODO-List</title>
+</head>
+<body>
+    <div class="container-fluid text-white px-0 py-2" id="app">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active ms-auto" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">首頁</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">任務</button>
+                <button class="nav-link me-auto" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">設定</button>
+            </div>
+        </nav>
+          <div class="tab-content p-3" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                A
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <button id="btn" class="btn btn-primary w-100">添加新任務</button>
+                <div v-for="(item, index) in list" class="taskItem">
+                    <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
+                    <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
+                    <p v-else class="d-inline taskText">{{item.name}}</p>
+                </div>
+                
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">C</div>
+          </div>
+        <section>
+            
+            
+        </section>
+        <section class="addTask" id="form" style="display: none;">
+            <div>
+                <div class="p-3 fw-bold">
+                    <p>添加新任務</p>
+                    <label class="text-secondary">任務名稱</label>
+                    <input id="task-name" class="form-control" type="text">
+                    <label class="text-secondary">任務類型</label>
+                    <select id="task-type" class="form-select mb-2" aria-label="Default select example">
+                        <option value="1">單次</option>
+                        <option value="2">每日</option>
+                        <option value="3">每周</option>
+                        <option value="3">每月</option>
+                    </select>
+                </div>
+                <footer class="form-footer">
+                    <button class="btn btn-primary float-end" id="create">創建</button>
+                    <button class="btn btn-link float-end" id="cancel">取消</button>
+                </footer>
+            </div>
+        </section>
+        <div data-bs-autohide="true" class="position-fixed bottom-0 end-0 p-3 w-100 text-center" style="z-index: 11">
+            <div id="liveToast" data-bs-delay="1500" class="toast hide bg-dark rounded-pill" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body p-2">任務添加成功</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="main.js"></script>
+<link rel="stylesheet" href="main.css">
+</html>

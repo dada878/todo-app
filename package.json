@@ -1,0 +1,18 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dada878",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.9.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.6.0",
+    "vue": "^3.2.37"
+  }
+}
