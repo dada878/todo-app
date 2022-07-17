@@ -17,23 +17,70 @@
     <div class="container-fluid text-white px-0 py-2" id="app">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active ms-auto" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">首頁</button>
-                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">任務</button>
+                <button class="nav-link ms-auto" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">首頁</button>
+                <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">任務</button>
                 <button class="nav-link me-auto" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">設定</button>
             </div>
         </nav>
           <div class="tab-content p-3" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 A
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <button id="btn" class="btn btn-primary w-100">添加新任務</button>
-                <div v-for="(item, index) in list" class="taskItem">
-                    <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
-                    <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
-                    <p v-else class="d-inline taskText">{{item.name}}</p>
-                </div>
+            <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <button id="btn" class="btn btn-primary w-100 mb-2">添加新任務</button>
                 
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                          單次任務
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body">
+                            <div v-for="(item, index) in list.filter((item) => item.type == 0)" class="taskItem">
+                                <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
+                                <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
+                                <p v-else class="d-inline taskText">{{item.name}}</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                          每日任務
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                        <div class="accordion-body">
+                          <div class="accordion-body">
+                            <div v-for="(item, index) in list.filter((item) => item.type == 1)" class="taskItem">
+                                <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
+                                <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
+                                <p v-else class="d-inline taskText">{{item.name}}</p>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                          每周任務
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+                        <div class="accordion-body">
+                            <div v-for="(item, index) in list.filter((item) => item.type == 2)" class="taskItem">
+                                <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
+                                <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
+                                <p v-else class="d-inline taskText">{{item.name}}</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">C</div>
           </div>
@@ -49,10 +96,9 @@
                     <input id="task-name" class="form-control" type="text">
                     <label class="text-secondary">任務類型</label>
                     <select id="task-type" class="form-select mb-2" aria-label="Default select example">
-                        <option value="1">單次</option>
-                        <option value="2">每日</option>
-                        <option value="3">每周</option>
-                        <option value="3">每月</option>
+                        <option value="0">單次</option>
+                        <option value="1">每日</option>
+                        <option value="2">每周</option>
                     </select>
                 </div>
                 <footer class="form-footer">

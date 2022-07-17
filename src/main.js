@@ -1,16 +1,7 @@
 var vu = Vue.createApp({
     data() {
         return {
-            list: [
-                {
-                    name: "Task A",
-                    finish: false,
-                },
-                {
-                    name: "Task B",
-                    finish: false,
-                },
-            ],
+            list: [],
         }
     }
 }).mount('#app');
@@ -22,6 +13,7 @@ $("#btn").on("click", () => {
 $("#create").on("click", () => {
     vu.list.push({
         name: $("#task-name").val(),
+        type: Number($("#task-type").val()),
         finish: false
     });
     save_data();
@@ -58,7 +50,7 @@ function init_input_callback() {
             vu.list[ele.attr("index")].finish = ele.is(":checked");
             save_data();
         });
-    }
+    } //FIXME: 修復index重複問題
 }
 
 function show_toast() {
