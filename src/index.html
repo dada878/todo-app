@@ -38,8 +38,8 @@
                       </h2>
                       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body">
-                            <div v-for="(item, index) in list.filter((item) => item.type == 0)" class="taskItem">
-                                <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
+                            <div v-for="item in list.filter((item) => item.type == 0)" class="taskItem">
+                                <input class="form-check-input me-2 task-checkbox" type="checkbox">
                                 <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
                                 <p v-else class="d-inline taskText">{{item.name}}</p>
                             </div>
@@ -55,8 +55,8 @@
                       <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
                         <div class="accordion-body">
                           <div class="accordion-body">
-                            <div v-for="(item, index) in list.filter((item) => item.type == 1)" class="taskItem">
-                                <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
+                            <div v-for="item in list.filter((item) => item.type == 1)" class="taskItem">
+                                <input class="form-check-input me-2 task-checkbox" type="checkbox">
                                 <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
                                 <p v-else class="d-inline taskText">{{item.name}}</p>
                             </div>
@@ -72,8 +72,8 @@
                       </h2>
                       <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
                         <div class="accordion-body">
-                            <div v-for="(item, index) in list.filter((item) => item.type == 2)" class="taskItem">
-                                <input v-bind:index="index" class="form-check-input me-2 task-checkbox" type="checkbox">
+                            <div v-for="item in list.filter((item) => item.type == 2)" class="taskItem">
+                                <input class="form-check-input me-2 task-checkbox" type="checkbox">
                                 <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
                                 <p v-else class="d-inline taskText">{{item.name}}</p>
                             </div>

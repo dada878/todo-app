@@ -2,7 +2,7 @@ const { app, BrowserWindow, Menu } = require("electron");
 
 app.on("ready", () => {
     let win = new BrowserWindow({
-        width: 600,
+        width: 300,
         height: 600,
         // frame:false
     });

@@ -16,6 +16,7 @@ $("#create").on("click", () => {
         type: Number($("#task-type").val()),
         finish: false
     });
+    sort_list();
     save_data();
     close_form();
     setTimeout(() => {
@@ -44,13 +45,13 @@ function init_input_callback() {
         const ele = $(i);
         ele.off("change");
     }
-    for (let i of inputs) {
-        const ele = $(i);
+    for (let i = 0; i < inputs.length; i++) {
+        const ele = $(inputs[i]);
         ele.on("change", () => {
-            vu.list[ele.attr("index")].finish = ele.is(":checked");
+            vu.list[i].finish = ele.is(":checked");
             save_data();
         });
-    } //FIXME: 修復index重複問題
+    }
 }
 
 function show_toast() {
@@ -78,17 +79,29 @@ function save_data() {
 function load_data() {
     let tasks = JSON.parse(localStorage.getItem("tasks"));
     if (tasks) {
-        vu.list = tasks;
+        vu.list = tasks.filter((item) => item.type == 0).concat(
+            tasks.filter((item) => item.type == 1).concat(
+                tasks.filter((item) => item.type == 2)
+            )
+        )
     }
 
     setTimeout(() => {
         let inputs = $(".task-checkbox");
-        for (let i of inputs) {
-            const ele = $(i);
-            ele.prop("checked", vu.list[ele.attr("index")].finish);
-            console.log(vu.list[ele.attr("index")].finish);
+        for (let i = 0; i < inputs.length; i++) {
+            const ele = $(inputs[i]);
+            ele.prop("checked", vu.list[i].finish);
         }
     }, 1);
+}
+
+function sort_list() {
+    let tasks = vu.list;
+    vu.list = tasks.filter((item) => item.type == 0).concat(
+        tasks.filter((item) => item.type == 1).concat(
+            tasks.filter((item) => item.type == 2)
+        )
+    )
 }
 
 load_data()
