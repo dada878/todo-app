@@ -8,15 +8,17 @@
     <link rel="stylesheet" href="///node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="///node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="///node_modules/vue/dist/vue.global.js"></script>
+    <script src="../node_modules/requirejs/require.js"></script>
     <script>
         window.$ = window.jQuery;
     </script>
     <title>TODO-List</title>
 </head>
-<body>
-    <div class="container-fluid text-white px-0 py-2" id="app">
+<!-- //TODO:自訂到期日 -->
+<body> 
+    <div class="container-fluid text-white px-0" id="app">
         <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <div class="nav nav-tabs pt-2" id="nav-tab" role="tablist">
                 <button class="nav-link ms-auto" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">首頁</button>
                 <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">任務</button>
                 <button class="nav-link me-auto" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">設定</button>
@@ -107,11 +109,11 @@
                 </footer>
             </div>
         </section>
-        <div data-bs-autohide="true" class="position-fixed bottom-0 end-0 p-3 w-100 text-center" style="z-index: 11">
+        <!-- <div data-bs-autohide="true" class="position-fixed bottom-0 end-0 p-3 w-100 text-center" style="z-index: 11">
             <div id="liveToast" data-bs-delay="1500" class="toast hide bg-dark rounded-pill" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-body p-2">任務添加成功</div>
             </div>
-        </div>
+        </div> -->
     </div>
 </body>
 <script src="main.js"></script>

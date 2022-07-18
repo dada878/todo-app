@@ -1,3 +1,12 @@
+// const electron = require('electron');
+// const {ipcRenderer} = electron;
+
+// function callScript() {
+//     ipcRenderer.send("notification");
+// }
+
+// import 'electron';
+
 var vu = Vue.createApp({
     data() {
         return {
@@ -49,6 +58,21 @@ function init_input_callback() {
         const ele = $(inputs[i]);
         ele.on("change", () => {
             vu.list[i].finish = ele.is(":checked");
+            save_data();
+        });
+    }
+    let taskItems = $(".taskItem");
+    for (let i of taskItems) {
+        const ele = $(i);
+        ele.off("click");
+    }
+    for (let i = 0; i < taskItems.length; i++) {
+        const ele = $(taskItems[i]);
+        const childrenEle = ele.children("input");
+        ele.on("click", () => {
+            let state = childrenEle.is(":checked");
+            vu.list[i].finish = !state;
+            childrenEle.prop("checked", !state);
             save_data();
         });
     }
@@ -107,4 +131,12 @@ function sort_list() {
 load_data()
 setTimeout(() => {
     init_input_callback();
-}, 1)
+}, 1);
+
+let height = $(document).height();
+let tabs = $(".tab-content");
+for (let tab = 0; tab < tabs.length; tab++) {
+    $(tabs[tab]).css("height", `${height - 5 - 50}px`);
+}
+
+window.electronAPI.notification("怎麼辦", "傑哥你幹嘛啦");

@@ -10,6 +10,8 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow:hidden;
+    border-radius: 4px;
+    cursor:pointer
 }
 
 .taskItem + .taskItem {
@@ -17,8 +19,8 @@ body {
 }
 
 .taskItem:hover {
-    background-color: #292b2f;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.317)
+    background-color: #565b65;
+    /* box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.317) */
 }
 
 .addTask {
