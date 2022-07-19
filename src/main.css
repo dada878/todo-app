@@ -3,18 +3,37 @@ body {
     user-select: none;
 }
 
+.remove-button {
+    margin: -5px;
+    width: 34px;
+    height: 34px;
+    float: right;
+    background-color: transparent;
+    border-width: 0px;
+    transition: 200ms;
+}
+
+.remove-button:hover {
+    background-color: #6d7480;
+}
+
 .taskItem {
     background-color: #2f3136;
     padding: 10px;
     transition: 200ms;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow:hidden;
+    overflow: hidden;
     border-radius: 4px;
-    cursor:pointer
+    cursor: pointer;
 }
 
-.taskItem + .taskItem {
+.taskItem p {
+    width: 200px;
+    max-width: 200px;
+}
+
+.taskItem+.taskItem {
     margin-top: 10px;
 }
 
@@ -70,6 +89,6 @@ body {
 /* ::-webkit-scrollbar {
     display: none;
 } */
-html{
+html {
     overflow-y: overlay;
 }

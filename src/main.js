@@ -33,8 +33,24 @@ $("#create").on("click", () => {
     }, 1);
 });
 
+var delete_value_check = false;
+
 $("#cancel").on("click", () => {
     close_form();
+});
+
+$("#cancel-alert").on("click", () => {
+    close_alert();
+});
+
+$("#ok-alert").on("click", () => {
+    delete_value_check = true;
+    close_alert();
+});
+
+$('#deleteAlert').on('click', function (e) {
+    if (e.target !== this) return;
+    close_alert();
 });
 
 $('#form').on('click', function (e) {
@@ -69,11 +85,18 @@ function init_input_callback() {
     for (let i = 0; i < taskItems.length; i++) {
         const ele = $(taskItems[i]);
         const childrenEle = ele.children("input");
-        ele.on("click", () => {
+        ele.on("click", (e) => {
+            if (e.target !== ele[0] && $(e.target).prop("tagName") != "P") return;
             let state = childrenEle.is(":checked");
             vu.list[i].finish = !state;
             childrenEle.prop("checked", !state);
             save_data();
+        });
+        const removeButton = ele.children(".remove-button");
+        removeButton.off("click");
+        removeButton.on("click", () => {
+            open_alert();
+            delete_target = i;
         });
     }
 }
@@ -94,6 +117,29 @@ function close_form() {
     setTimeout(() => {
         $("#form").hide();
     }, 200);
+}
+
+function open_alert() {
+    $("#deleteAlert").show();
+    $("#deleteAlert").addClass("addTask-display");
+}
+
+var delete_target;
+function close_alert() {
+    $("#deleteAlert").removeClass("addTask-display");
+    setTimeout(() => {
+        $("#deleteAlert").hide();
+    }, 200);
+    if (delete_value_check) {
+        console.log(vu.list)
+        vu.list = vu.list.filter(item => item != vu.list[delete_target]);
+        setTimeout(() => {
+            init_input_callback();
+            save_data();
+            load_data();
+        }, 1);
+        delete_value_check = false;
+    }
 }
 
 function save_data() {
