@@ -9,15 +9,21 @@
     <script src="///node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="///node_modules/vue/dist/vue.global.js"></script>
     <script src="../node_modules/requirejs/require.js"></script>
+    <!-- <script src="../node_modules/chart.js/dist/chart.min.js" type="module"></script> -->
 
     <script>
         window.$ = window.jQuery;
     </script>
-    <title>TODO-List</title>
+    <title>TODO Master</title>
 </head>
 <!-- //TODO:自訂到期日 -->
 <body> 
     <div class="container-fluid text-white px-0" id="app">
+      <section class="titlebar">
+        <p class="d-inline">TODO Master</p>
+        <img draggable="false" id="quit" src="///assets/close.png" width="20" height="20" class="float-end">
+        <img draggable="false" id="minimize" src="///assets/minimize.png" width="20" height="20" class="float-end">
+      </section>
         <nav>
             <div class="nav nav-tabs pt-2" id="nav-tab" role="tablist">
                 <button class="nav-link ms-auto" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">首頁</button>
@@ -27,7 +33,10 @@
         </nav>
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                A
+              <p class="text-secondary">當前任務達成進度：</p>
+              <div class="progress-bar blue stripes my-1">
+                <span id="task-progress" style="width: 0%">0%</span>
+              </div>
             </div>
             <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <button id="btn" class="btn btn-primary w-100 mb-2">添加新任務</button>
@@ -83,9 +92,9 @@
                         <div class="accordion-body">
                             <div v-for="item in list.filter((item) => item.type == 2)" class="taskItem">
                                 <input class="form-check-input me-2 task-checkbox" type="checkbox">
-                                <s v-if="item.finish"><p class="d-inline-block taskText">{{item.name}}</p></s>
-                                <p v-else class="d-inline-block taskText">{{item.name}}</p>
-                                <button class="remove-button btn-circle p-1 d-inline-block rounded-circle">
+                                <s v-if="item.finish"><p class="d-inline taskText">{{item.name}}</p></s>
+                                <p v-else class="d-inline taskText">{{item.name}}</p>
+                                <button class="remove-button btn-circle p-1 rounded-circle">
                                   <img width="20" height="20" src="///assets/delete.png">
                                 </button>
                             </div>
@@ -96,13 +105,18 @@
             </div>
             <div class="tab-pane fade fw-bold" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
               <label class="text-secondary mt-0">提醒訊息間隔時間</label>
-              <select id="task-type" class="form-select mb-2" aria-label="Default select example">
+              <select id="task-tip" class="form-select mb-2" aria-label="Default select example">
                 <option value="0">關閉提醒訊息</option>
-                <option value="0">15分鐘</option>
-                <option value="1">30分鐘</option>
-                <option value="2">1小時</option>
-                <option value="2">2小時</option>
-                <option value="2">3小時</option>
+                <option value="15">15分鐘</option>
+                <option value="30">30分鐘</option>
+                <option value="60">1小時</option>
+                <option value="120">2小時</option>
+                <option value="180">3小時</option>
+            </select>
+            <label class="text-secondary mt-0">電腦啟動時自動開啟 TODO Master</label>
+              <select id="run-in-restart" class="form-select mb-2" aria-label="Default select example">
+                <option value="1">啟用</option>
+                <option value="0">關閉</option>
             </select>
             </div>
           </div>

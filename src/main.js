@@ -131,7 +131,6 @@ function close_alert() {
         $("#deleteAlert").hide();
     }, 200);
     if (delete_value_check) {
-        console.log(vu.list)
         vu.list = vu.list.filter(item => item != vu.list[delete_target]);
         setTimeout(() => {
             init_input_callback();
@@ -142,8 +141,13 @@ function close_alert() {
     }
 }
 
+function remove_item(index) {
+    vu.list = vu.list.filter(item => item != vu.list[index]);
+}
+
 function save_data() {
     localStorage.setItem("tasks", JSON.stringify(vu.list));
+    setProgress(Math.round(vu.list.filter((item) => item.finish == true).length / vu.list.length * 100));
 }
 
 function load_data() {
@@ -163,6 +167,8 @@ function load_data() {
             ele.prop("checked", vu.list[i].finish);
         }
     }, 1);
+
+    setProgress(Math.round(vu.list.filter((item) => item.finish == true).length / vu.list.length * 100));
 }
 
 function sort_list() {
@@ -182,7 +188,77 @@ setTimeout(() => {
 let height = $(document).height();
 let tabs = $(".tab-content");
 for (let tab = 0; tab < tabs.length; tab++) {
-    $(tabs[tab]).css("height", `${height - 5 - 50}px`);
+    $(tabs[tab]).css("height", `${height - 30 - 50}px`);
 }
 
-window.electronAPI.notification("怎麼辦", "傑哥你幹嘛啦");
+function setProgress(value) {
+    const ele = $("#task-progress");
+    ele.css("width", value + "%");
+    ele.text(value + "%");
+}
+
+$("#quit").on("click",() => {
+    electronAPI.quitApp();
+});
+
+$("#minimize").on("click",() => {
+    electronAPI.minimizeApp();
+});
+
+function check_date() {
+    let date = new Date().toISOString().split('T')[0];
+    
+    let dateInDB = localStorage.getItem("date");
+    localStorage.setItem("date", date);
+
+    let will_remove = [];
+
+    if (!dateInDB || dateInDB != date) {
+        for(let i = 0; i < vu.list.length; i++) {
+            const item = vu.list[i];
+            console.log(item.type == 0 && item.finish == true)
+            if (item.type == 0 && item.finish == true) {
+                console.log("true")
+                will_remove.push(i);
+            } else if (item.type == 1) {
+                item.finish = false;
+                vu.list[i] = item;
+            }
+        }
+    }
+
+    let removeCount = 0;
+    for (let i of will_remove) {
+        remove_item(i-removeCount);
+        removeCount++;
+    }
+
+    let currentDate = new Date();
+    let oneJan = new Date(currentDate.getFullYear(),0,1);
+    let numberOfDays = Math.floor((currentDate - oneJan) / (24 * 60 * 60 * 1000));
+    let week = Math.ceil(( currentDate.getDay() + 1 + numberOfDays) / 7);
+    let weekInDB = localStorage.getItem("week");
+    localStorage.setItem("week", week);
+
+    if (!weekInDB || weekInDB != week) {
+        for(let i = 0; i < vu.list.length; i++) {
+            const item = vu.list[i];
+            if (item.type == 2) {
+                item.finish = false;
+                vu.list[i] = item;
+            }
+        }
+    }
+
+    save_data();
+    load_data();
+    setTimeout(() => {
+        init_input_callback();
+    }, 1);
+}
+
+electronAPI.notification("TODO Master", "嘿 別忘了今天的任務哦~");
+
+setInterval(() => {
+    console.log("aa");
+}, 1000);
