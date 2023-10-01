@@ -16,7 +16,7 @@ app.on("ready", () => {
     });
 
     let win = new BrowserWindow({
-        width: 600,
+        width: 300,
         height: 600,
         webPreferences: {
             preload: path.join(__dirname, 'src/preload.js')
@@ -25,7 +25,7 @@ app.on("ready", () => {
     });
     win.setResizable(false);
 
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
 
     ipcMain.on("app:notification", (event, title, body) => {
         const notification = new Notification({ title: title, body: body });
